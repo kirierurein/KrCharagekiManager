@@ -1,0 +1,82 @@
+const:
+	UNITY = 1
+end
+
+resources:
+	""
+	""
+end
+
+initialize:
+	load_scenario key="csv" path="Kirierurein/KrCharageki/Demo/Resources/TestCharageki/testScenario.csv"
+	load_bg id=1
+	
+	load_chara id=$UNITY
+end
+
+main:
+	section:
+		set_scenario key="csv"
+		fade_in
+		wait_input wait=false
+	end
+	section:
+		wait_time time=1.0
+	end
+	section:
+		set_bg id=1
+		set_title
+		fade_out
+		show_bg
+		show_title
+		wait_input wait=true
+	end
+	section:
+		hide_title
+		fade_out
+		set_text id=1
+		show_text
+		chara_position chara=$UNITY position="center"
+		show_chara id=$UNITY
+		wait_input wait=true
+		chara_action chara=$UNITY action=1
+	end
+	section:
+		set_text id=2
+	end
+	section:
+		set_text id=3
+		chara_action chara=$UNITY action=2
+	end
+	section:
+		set_text id=4
+		chara_action chara=$UNITY action=3
+	end
+	section:
+		set_text id=5
+		chara_action chara=$UNITY action=4
+	end
+	section:
+		set_text id=6
+		chara_action chara=$UNITY action=5
+	end
+	section:
+		set_text id=7
+	end
+	section:
+		set_text id=8
+	end
+	section:
+		set_text id=9
+	end
+	section:
+		set_text id=10
+	end
+	section:
+		fade_in
+	end
+	section:
+		hide_chara id=$UNITY
+	end
+	
+end
