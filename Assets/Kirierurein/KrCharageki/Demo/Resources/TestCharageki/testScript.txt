@@ -8,7 +8,7 @@ resources:
 end
 
 initialize:
-	load_scenario key="csv" path="Kirierurein/KrCharageki/Demo/Resources/TestCharageki/testScenario.csv"
+	load_scenario key="csv" path="TestCharageki/testScenario"
 	load_bg id=1
 	
 	load_chara id=$UNITY

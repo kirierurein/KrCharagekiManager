@@ -89,15 +89,16 @@ public class KrLive2DModel : MonoBehaviour
     // @Param : pMocFilePath        => Moc file path
     //        : pTexturePaths       => Texture paths
     //        : pMotionFilePaths    => Motion file paths
+    //        : bFromResources      => From resources file
     //        : pParent             => Object parent
-    public static KrLive2DModel Create(string pMocFilePath, string[] pTexturePaths, string[] pMotionFilePaths, Transform pParent = null)
+    public static KrLive2DModel Create(string pMocFilePath, string[] pTexturePaths, string[] pMotionFilePaths, bool bFromResources, Transform pParent = null)
     {
         GameObject pPrefab = KrResources.LoadDataInApp<GameObject>("Prefabs/Live2DModel");
         GameObject pObject = Instantiate(pPrefab);
         pObject.transform.SetParent(pParent);
 
         KrLive2DModel pLive2DModel = pObject.GetComponent<KrLive2DModel>();
-        pLive2DModel.Initialize(pMocFilePath, pTexturePaths, pMotionFilePaths);
+        pLive2DModel.Initialize(pMocFilePath, pTexturePaths, pMotionFilePaths, bFromResources);
 
         return pLive2DModel;
     }
@@ -106,13 +107,14 @@ public class KrLive2DModel : MonoBehaviour
     // @Param : pMocFilePath        => Moc file path
     //        : pTexturePaths       => Texture paths
     //        : pMotionFilePaths    => Motion file paths
-    public void Initialize(string pMocFilePath, string[] pTexturePaths, string[] pMotionFilePaths)
+    //        : bFromResources      => From resources file
+    public void Initialize(string pMocFilePath, string[] pTexturePaths, string[] pMotionFilePaths, bool bFromResources)
     {
         // Initialize live2d
         KrLive2DInitializer.Create();
 
         // Load model
-        byte[] pMocFile = KrResources.LoadBytes(pMocFilePath);
+        byte[] pMocFile = KrResources.LoadBytes(pMocFilePath, bFromResources);
         m_pLive2dModel = Live2DModelUnity.loadModel(pMocFile);
 
         // Set render mode
@@ -121,18 +123,9 @@ public class KrLive2DModel : MonoBehaviour
         // Ref : http://sites.cybernoids.jp/cubism2/sdk_tutorial/platform-setting/unity/csharp/render-mode
         m_pLive2dModel.setRenderMode(Live2D.L2D_RENDER_DRAW_MESH);
 
-
-        byte[][] pTextures = new byte[pTexturePaths.Length][];
         for(int sIndex = 0; sIndex < pTexturePaths.Length; sIndex++)
         {
-            // Load texture
-            pTextures[sIndex] = KrResources.LoadBytes(pTexturePaths[sIndex]);
-        }
-
-        for(int sIndex = 0; sIndex < pTextures.Length; sIndex++)
-        {
-            Texture2D pTexture = new Texture2D(2048, 2048, TextureFormat.RGBA32, false);
-            pTexture.LoadImage(pTextures[sIndex]);
+            Texture2D pTexture = KrResources.LoadTexture2D(pTexturePaths[sIndex], bFromResources);
             // Set Texture
             m_pLive2dModel.setTexture(sIndex, pTexture);
         }
@@ -141,7 +134,7 @@ public class KrLive2DModel : MonoBehaviour
         m_pMotionDatas = new Dictionary<string, byte[]>();
         for(int sIndex = 0; sIndex < pMotionFilePaths.Length; sIndex++)
         {
-            m_pMotionDatas.Add(pMotionFilePaths[sIndex], KrResources.LoadBytes(pMotionFilePaths[sIndex]));
+            m_pMotionDatas.Add(pMotionFilePaths[sIndex], KrResources.LoadBytes(pMotionFilePaths[sIndex], bFromResources));
         }
         m_pMotionManager = new MotionQueueManager();
         // Create idle motion

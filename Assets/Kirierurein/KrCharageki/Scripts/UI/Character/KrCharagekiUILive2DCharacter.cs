@@ -91,11 +91,11 @@ public class KrCharagekiUILive2DCharacter : KrCharagekiUICharacter
     protected override void Initialize(KrCharagekiUICharacterData pData)
     {
         base.Initialize(pData);
-        string pMocPath = KrCharagekiDef.s_pASSET_BASE_PATH + "/" + string.Format(KrCharagekiDef.s_pLIVE2D_MCO_FILE_FORMAT, pData.GetCharacterId());
+        string pMocPath = KrCharagekiDef.s_pASSET_BASE_PATH + string.Format(KrCharagekiDef.s_pLIVE2D_MCO_FILE_FORMAT, pData.GetCharacterId());
         string[] pTexturePaths = new string[KrCharagekiDef.s_pLIVE2D_MODEL_TEXTURES_FORMAT.Length];
         for(int sIndex = 0; sIndex < KrCharagekiDef.s_pLIVE2D_MODEL_TEXTURES_FORMAT.Length; sIndex++)
         {
-            string pTexturePath = KrCharagekiDef.s_pASSET_BASE_PATH + "/" + string.Format(KrCharagekiDef.s_pLIVE2D_MODEL_TEXTURES_FORMAT[sIndex], pData.GetCharacterId());
+            string pTexturePath = KrCharagekiDef.s_pASSET_BASE_PATH + string.Format(KrCharagekiDef.s_pLIVE2D_MODEL_TEXTURES_FORMAT[sIndex], pData.GetCharacterId());
             pTexturePaths[sIndex] = pTexturePath;
         }
         List<string> pMotions = new List<string>();
@@ -103,12 +103,12 @@ public class KrCharagekiUILive2DCharacter : KrCharagekiUICharacter
         m_MotionDic = new Dictionary<uint, string>();
         foreach(KeyValuePair<uint, string> pKeyValue in KrCharagekiDef.s_pLIVE2D_MOTION_FILE_DIC)
         {
-            string pDataPath = KrCharagekiDef.s_pASSET_BASE_PATH + "/" + string.Format(pKeyValue.Value, m_pCharaData.GetCharacterId());
+            string pDataPath = KrCharagekiDef.s_pASSET_BASE_PATH + string.Format(pKeyValue.Value, m_pCharaData.GetCharacterId());
             m_MotionDic.Add(pKeyValue.Key, pDataPath);
             pMotions.Add(pDataPath);
         }
 
-        m_pLive2DModel = KrLive2DModel.Create(pMocPath, pTexturePaths, pMotions.ToArray(), transform);
+        m_pLive2DModel = KrLive2DModel.Create(pMocPath, pTexturePaths, pMotions.ToArray(), KrCharagekiDef.IsLoadingFromResources(), transform);
         Hide();
     }
 }

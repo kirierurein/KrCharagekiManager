@@ -27,7 +27,7 @@ public class KrCharagekiDef
     // @Brief : Background master
     public static Dictionary<uint, KrCharagekiUIBackgroundData> s_pBACK_GROUNDS = new Dictionary<uint, KrCharagekiUIBackgroundData>()
     {
-        {1, new KrCharagekiUIBackgroundData("demo", "Kirierurein/KrCharageki/Demo/Resources/UI/Sign_Okay.png")},
+        {1, new KrCharagekiUIBackgroundData("demo", "UI/Sign_Okay")},
     };
 
     // @Brief : Character master
@@ -39,31 +39,41 @@ public class KrCharagekiDef
     // @Brief : 2D character action image master
     public static Dictionary<uint, string> s_p2D_CHARA_ACTION_IMAGE = new Dictionary<uint, string>()
     {
-        {1, "Kirierurein/KrCharageki/Demo/Resources/UI/{0:00}/standing_idol.png"},
-        {2, "Kirierurein/KrCharageki/Demo/Resources/UI/{0:00}/standing_idol.png"},
-        {3, "Kirierurein/KrCharageki/Demo/Resources/UI/{0:00}/standing_idol.png"},
-        {4, "Kirierurein/KrCharageki/Demo/Resources/UI/{0:00}/standing_idol.png"},
-        {5, "Kirierurein/KrCharageki/Demo/Resources/UI/{0:00}/standing_idol.png"},
-        {6, "Kirierurein/KrCharageki/Demo/Resources/UI/{0:00}/standing_idol.png"},
-        {7, "Kirierurein/KrCharageki/Demo/Resources/UI/{0:00}/standing_idol.png"},
+        {1, "UI/{0:00}/standing_idol"},
+        {2, "UI/{0:00}/standing_idol"},
+        {3, "UI/{0:00}/standing_idol"},
+        {4, "UI/{0:00}/standing_idol"},
+        {5, "UI/{0:00}/standing_idol"},
+        {6, "UI/{0:00}/standing_idol"},
+        {7, "UI/{0:00}/standing_idol"},
     };
 
     // @Brief : Live2D mco file path format
-    public static string s_pLIVE2D_MCO_FILE_FORMAT = "Kirierurein/KrCharageki/Demo/Resources/UI/{0:00}/Live2D/chara.moc.bytes";
+    public static string s_pLIVE2D_MCO_FILE_FORMAT = "UI/{0:00}/Live2D/chara.moc";
 
     // @Brief : Live2D model texture file path formats
-    public static string[] s_pLIVE2D_MODEL_TEXTURES_FORMAT = new string[]{"Kirierurein/KrCharageki/Demo/Resources/UI/{0:00}/Live2D/texture_00.png"};
+    public static string[] s_pLIVE2D_MODEL_TEXTURES_FORMAT = new string[]{"UI/{0:00}/Live2D/texture_00"};
 
     // @Brief : Live2D motion file master
     public static Dictionary<uint, string> s_pLIVE2D_MOTION_FILE_DIC = new Dictionary<uint, string>()
     {
-        {1, "Kirierurein/KrCharageki/Demo/Resources/UI/{0:00}/Live2D/Motions/idle_01.mtn.bytes"},
-        {2, "Kirierurein/KrCharageki/Demo/Resources/UI/{0:00}/Live2D/Motions/m_01.mtn.bytes"},
-        {3, "Kirierurein/KrCharageki/Demo/Resources/UI/{0:00}/Live2D/Motions/m_02.mtn.bytes"},
-        {4, "Kirierurein/KrCharageki/Demo/Resources/UI/{0:00}/Live2D/Motions/m_03.mtn.bytes"},
-        {5, "Kirierurein/KrCharageki/Demo/Resources/UI/{0:00}/Live2D/Motions/m_04.mtn.bytes"},
-        {6, "Kirierurein/KrCharageki/Demo/Resources/UI/{0:00}/Live2D/Motions/m_05.mtn.bytes"},
-        {7, "Kirierurein/KrCharageki/Demo/Resources/UI/{0:00}/Live2D/Motions/m_06.mtn.bytes"},
+        {1, "UI/{0:00}/Live2D/Motions/idle_01.mtn"},
+        {2, "UI/{0:00}/Live2D/Motions/m_01.mtn"},
+        {3, "UI/{0:00}/Live2D/Motions/m_02.mtn"},
+        {4, "UI/{0:00}/Live2D/Motions/m_03.mtn"},
+        {5, "UI/{0:00}/Live2D/Motions/m_04.mtn"},
+        {6, "UI/{0:00}/Live2D/Motions/m_05.mtn"},
+        {7, "UI/{0:00}/Live2D/Motions/m_06.mtn"},
     };
+
+    //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // PUBLIC
+    //:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    // @Brief  : Returns whether it is reading from resource folder
+    // @Return : Is loading from resources [TRUE => From resources, FALSE => From other than resources]
+    public static bool IsLoadingFromResources()
+    {
+        return string.IsNullOrEmpty(s_pASSET_BASE_PATH);
+    }
 }
 

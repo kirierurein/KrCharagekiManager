@@ -31,7 +31,7 @@ public class KrCharagekiScenarioContainer
     //          pPath   => Csv path
     public void LoadScenario(string pKey, string pPath)
     {
-        KrCsvData pCsvData = KrCsvLoader.Load(KrCharagekiDef.s_pASSET_BASE_PATH + "/" + pPath);
+        KrCsvData pCsvData = KrCsvLoader.Load(KrCharagekiDef.s_pASSET_BASE_PATH + pPath, KrCharagekiDef.IsLoadingFromResources());
         m_pScenarioDataDic.Add(pKey, pCsvData);
     }
 

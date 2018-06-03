@@ -1,5 +1,5 @@
-﻿No,CharaId,Comment,VoiceId
-1,1,始めまして,Kirierurein/KrCharageki/Demo/Resources/Voice/uni1474.wav
+No,CharaId,Comment,VoiceId
+1,1,始めまして,Voice/uni1474
 2,1,KrCharagekiManagerはADV機能の作成のサポートをします,
 3,1,"TextScriptの記述はconst、resources、initialize、mainの
 4つのグループで構成されます",
@@ -16,5 +16,5 @@ Text表示やCharacter移動などが行えます",
 8,1,"セリフはcsvデータから取得するので
 カンマを使用しないようにしてください",
 9,1,"音声データはAssets以下以外のフォルダーから使用できるようになっているため
-Wavデータのみのサポートとなってます",Kirierurein/KrCharageki/Demo/Resources/Voice/uni1492.wav
-10,1,以上、どうぞよろしくお願いします,Kirierurein/KrCharageki/Demo/Resources/Voice/uni1472.wav
+Wavデータのみのサポートとなってます",Voice/uni1492
+10,1,以上、どうぞよろしくお願いします,Voice/uni1472

@@ -13,11 +13,12 @@ public class KrCsvLoader
     // PUBLIC
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     // @Brief : Csv Load
-    // @Param : pPath   => Asset path
-    public static KrCsvData Load(string pPath)
+    // @Param : pPath           => Asset path
+    //        : bFromResources  => From resources file
+    public static KrCsvData Load(string pPath, bool bFromResources)
     {
         KrCsvData pCsvData = new KrCsvData();
-        StreamReader pStreamReader = KrResources.LoadText(pPath);
+        StreamReader pStreamReader = KrResources.LoadText(pPath, bFromResources);
         KrDebug.Log("Load csv. path = " + pPath, typeof(KrCsvData));
         if(pStreamReader.Peek() > -1)
         {

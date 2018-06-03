@@ -38,7 +38,7 @@ public class KrCharagekiUIBackgroundData
     // @Brief : Load
     public void LoadSprite()
     {
-        m_pBgSprite = KrResources.LoadSprite(KrCharagekiDef.s_pASSET_BASE_PATH + "/" + m_pImagePath);
+        m_pBgSprite = KrResources.LoadSprite(KrCharagekiDef.s_pASSET_BASE_PATH + m_pImagePath, KrCharagekiDef.IsLoadingFromResources());
     }
 
     // @Brief : Get Sprite

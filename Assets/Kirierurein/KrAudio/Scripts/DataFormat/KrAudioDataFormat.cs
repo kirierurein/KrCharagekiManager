@@ -14,12 +14,13 @@ public abstract class KrAudioDataFormat
     // CONSTRUCTOR
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     // @Brief  : Constructor
-    // @Param  : pPath  => Absolute path of Audio asset.
+    // @Param  : pPath          => Absolute path of Audio asset.
+    //         : bFromResources => From resources file
     // @Return : KrWav instance
-    public KrAudioDataFormat(string pPath)
+    public KrAudioDataFormat(string pPath, bool bFromResources)
     {
         m_pName = System.IO.Path.GetFileNameWithoutExtension(pPath);
-        byte[] pBytes = KrResources.LoadBytes(pPath);
+        byte[] pBytes = KrResources.LoadBytes(pPath, bFromResources);
         ConvertBytes(pBytes);
     }
 

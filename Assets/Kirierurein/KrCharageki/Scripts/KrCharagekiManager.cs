@@ -106,7 +106,7 @@ public class KrCharagekiManager : MonoBehaviour
     //         : pAssetBasePath => Asset base path
     //         : pServerBaseUrl => Server base url
     // @Return : KrCharagekiManager instance
-    public static KrCharagekiManager Create(Transform pParent, string[] pScripts, Transform pCharaParent, KrCharagekiUICharacterContainer.eVIEW_MODE eViewMode, float fAutoTime, string pAssetBasePath, string pServerBaseUrl = "")
+    public static KrCharagekiManager Create(Transform pParent, string[] pScripts, Transform pCharaParent, KrCharagekiUICharacterContainer.eVIEW_MODE eViewMode, float fAutoTime, string pAssetBasePath = "", string pServerBaseUrl = "")
     {
         GameObject pPrefab = KrResources.LoadDataInApp<GameObject>(c_pPREFAB_PATH);
         GameObject pObj = Instantiate<GameObject>(pPrefab, pParent);
@@ -161,7 +161,7 @@ public class KrCharagekiManager : MonoBehaviour
     // @Return : Audio source
     public KrAudioSource PlayVoice(string pPath)
     {
-        return KrAudioManager.I.PlayVoice(KrCharagekiDef.s_pASSET_BASE_PATH + "/" + pPath, false);
+        return KrAudioManager.I.PlayVoice(KrCharagekiDef.s_pASSET_BASE_PATH + pPath, false, KrCharagekiDef.IsLoadingFromResources());
     }
 
     // @Brief  : Play se
@@ -169,7 +169,7 @@ public class KrCharagekiManager : MonoBehaviour
     // @Return : Audio source
     public KrAudioSource PlaySe(string pPath)
     {
-        return KrAudioManager.I.PlaySe(KrCharagekiDef.s_pASSET_BASE_PATH + "/" + pPath, false);
+        return KrAudioManager.I.PlaySe(KrCharagekiDef.s_pASSET_BASE_PATH + pPath, false, KrCharagekiDef.IsLoadingFromResources());
     }
 
     // @Brief  : Play bgm
@@ -177,7 +177,7 @@ public class KrCharagekiManager : MonoBehaviour
     // @Return : Audio source
     public KrAudioSource PlayBgm(string pPath)
     {
-        return KrAudioManager.I.PlayBgm(KrCharagekiDef.s_pASSET_BASE_PATH + "/" + pPath);
+        return KrAudioManager.I.PlayBgm(KrCharagekiDef.s_pASSET_BASE_PATH + pPath, KrCharagekiDef.IsLoadingFromResources());
     }
 
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -190,7 +190,7 @@ public class KrCharagekiManager : MonoBehaviour
         KrCharagekiScript pScript = new KrCharagekiScript();
         for(int sIndex = 0; sIndex < m_pScriptPaths.Length; sIndex++)
         {
-            StreamReader pReader = KrResources.LoadText(KrCharagekiDef.s_pASSET_BASE_PATH + "/" + m_pScriptPaths[sIndex]);
+            StreamReader pReader = KrResources.LoadText(KrCharagekiDef.s_pASSET_BASE_PATH + m_pScriptPaths[sIndex], KrCharagekiDef.IsLoadingFromResources());
             try
             {
                 pScript.LoadScript(pReader);

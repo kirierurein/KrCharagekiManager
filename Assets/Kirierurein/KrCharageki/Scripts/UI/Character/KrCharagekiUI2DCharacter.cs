@@ -84,8 +84,8 @@ public class KrCharagekiUI2DCharacter : KrCharagekiUICharacter
         m_pActionSpriteDic = new Dictionary<uint, Sprite>();
         foreach(KeyValuePair<uint, string> pKeyValue in KrCharagekiDef.s_p2D_CHARA_ACTION_IMAGE)
         {
-            string pDataPath = KrCharagekiDef.s_pASSET_BASE_PATH + "/" + string.Format(pKeyValue.Value, m_pCharaData.GetCharacterId());
-            Sprite pSprite = KrResources.LoadSprite(pDataPath);
+            string pDataPath = KrCharagekiDef.s_pASSET_BASE_PATH + string.Format(pKeyValue.Value, m_pCharaData.GetCharacterId());
+            Sprite pSprite = KrResources.LoadSprite(pDataPath, KrCharagekiDef.IsLoadingFromResources());
             m_pActionSpriteDic.Add(pKeyValue.Key, pSprite);
         }
         Hide();

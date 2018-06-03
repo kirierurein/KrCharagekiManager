@@ -12,9 +12,9 @@ public class KrScreenCharageki : KrScreen
     // private inspector.
     [Header("InputParam")]
     [SerializeField]
-    string[]                                    scriptPaths         = null;                                                 // script paths
+    private string[]                                    scriptPaths         = null;                                                 // script paths
     [SerializeField]
-    KrCharagekiUICharacterContainer.eVIEW_MODE  charagekiMode       = KrCharagekiUICharacterContainer.eVIEW_MODE.LIVE2D;    // view mode
+    private KrCharagekiUICharacterContainer.eVIEW_MODE  charagekiMode       = KrCharagekiUICharacterContainer.eVIEW_MODE.LIVE2D;    // view mode
 
     [Header("Ui")]
     [SerializeField]
@@ -72,7 +72,7 @@ public class KrScreenCharageki : KrScreen
     // @Param : pParam  => Arguments for initialize 
     public override void Initialize(KrUIArgumentParameter pParam)
     {
-        KrCharagekiManager pManager = KrCharagekiManager.Create(transform, scriptPaths, charaParent, charagekiMode, 1.0f, Application.dataPath);
+        KrCharagekiManager pManager = KrCharagekiManager.Create(transform, scriptPaths, charaParent, charagekiMode, 1.0f);
         KrCharagekiUIController pUIController = pManager.GetUIController();
 
         // AddListener tap screen

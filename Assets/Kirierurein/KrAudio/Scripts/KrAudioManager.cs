@@ -58,11 +58,12 @@ public class KrAudioManager : MonoBehaviour
     // PUBLIC FUNCTION
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     // @Brief  : Play bgm
-    // @Param  : pPath  => Audio asset path
+    // @Param  : pPath          => Audio asset path
+    //         : bFromResources => From resources file
     // @Return : Audio source
-    public KrAudioSource PlayBgm(string pPath)
+    public KrAudioSource PlayBgm(string pPath, bool bFromResources)
     {
-        KrAudioSource pAudioSource = PlayAudio(pPath, true);
+        KrAudioSource pAudioSource = PlayAudio(pPath, true, bFromResources);
         if(pAudioSource == null)
             return null;
 
@@ -75,12 +76,13 @@ public class KrAudioManager : MonoBehaviour
     }
 
     // @Brief  : Play se
-    // @Param  : pPath      => Audio asset path
-    //         : bIsLoop    => Is loop mode
+    // @Param  : pPath          => Audio asset path
+    //         : bIsLoop        => Is loop mode
+    //         : bFromResources => From resources file
     // @Return : Audio source
-    public KrAudioSource PlaySe(string pPath, bool bIsLoop)
+    public KrAudioSource PlaySe(string pPath, bool bIsLoop, bool bFromResources)
     {
-        KrAudioSource pAudioSource = PlayAudio(pPath, bIsLoop);
+        KrAudioSource pAudioSource = PlayAudio(pPath, bIsLoop, bFromResources);
         if(pAudioSource == null)
             return null;
         
@@ -91,10 +93,11 @@ public class KrAudioManager : MonoBehaviour
     // @Brief  : Play se
     // @Param  : pPath          => Audio asset path
     //         : bIsMultiVoice  => Is multi voice
+    //         : bFromResources => From resources file
     // @Return : Audio source
-    public KrAudioSource PlayVoice(string pPath, bool bIsMultiVoice)
+    public KrAudioSource PlayVoice(string pPath, bool bIsMultiVoice, bool bFromResources)
     {
-        KrAudioSource pAudioSource = PlayAudio(pPath, false);
+        KrAudioSource pAudioSource = PlayAudio(pPath, false, bFromResources);
         if(pAudioSource == null)
             return null;
         
@@ -178,17 +181,12 @@ public class KrAudioManager : MonoBehaviour
     // PRIVATE FUNCTION
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     // @Brief  : Play audio
-    // @Param  : pPath      => Asset path of audio clip
-    //         : bIsLoop    => Is loop mode
+    // @Param  : pPath          => Asset path of audio clip
+    //         : bIsLoop        => Is loop mode
+    //         : bFromResources => From resources file
     // @Return : Audio source
-    private KrAudioSource PlayAudio(string pPath, bool bIsLoop)
+    private KrAudioSource PlayAudio(string pPath, bool bIsLoop, bool bFromResources)
     {
-        if(string.IsNullOrEmpty(pPath) || !System.IO.File.Exists(pPath))
-        {
-            KrDebug.Warning(false, "The file of the specified path does not exist. path = " + pPath, typeof(KrAudioManager));
-            return null;
-        }
-
         AudioClip pAudioClip = null;
 
         // Check if AudioClip exists in cache
@@ -199,9 +197,15 @@ public class KrAudioManager : MonoBehaviour
         }
         else
         {
-            KrWav pWav = new KrWav(pPath);
-            pAudioClip = pWav.CreateAudioClip();
-        } 
+            pAudioClip = LoadAudioClip(pPath, bFromResources);
+        }
+
+        if(pAudioClip == null)
+        {
+            KrDebug.Warning(false, "Audio clip is null. path = " + pPath, typeof(KrAudioManager));
+            return null;
+        }
+
         m_pChacedAudioClip.Add(pPath, pAudioClip);
 
         // Delete the old cache when the number of AudioClips to be cached is exceeded
@@ -217,5 +221,34 @@ public class KrAudioManager : MonoBehaviour
         pAudioSource.transform.SetParent(transform, false);
         pAudioSource.name = System.IO.Path.GetFileName(pPath);
         return pAudioSource;
+    }
+
+    // @Brief  : Load audio clip
+    // @Param  : pPath          => Asset path
+    //         : bFromResources => From resources file
+    // @Return : Audio clip
+    private AudioClip LoadAudioClip(string pPath, bool bFromResources = false)
+    {
+        if(string.IsNullOrEmpty(pPath))
+        {
+            KrDebug.Warning(false, "The path is empty. path = " + pPath, typeof(KrAudioManager));
+            return null;
+        }
+
+        if(bFromResources)
+        {
+            return KrResources.LoadDataInApp<AudioClip>(pPath);
+        }
+        else
+        {
+            if(!System.IO.File.Exists(pPath))
+            {
+                KrDebug.Warning(false, "The file of the specified path does not exist. path = " + pPath, typeof(KrAudioManager));
+                return null;
+            }
+
+            KrWav pWav = new KrWav(pPath, bFromResources);
+            return pWav.CreateAudioClip();
+        }
     }
 }

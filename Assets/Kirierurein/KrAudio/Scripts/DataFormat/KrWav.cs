@@ -142,9 +142,10 @@ public class KrWav : KrAudioDataFormat
     // CONSTRUCTOR
     //::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
     // @Brief  : Constructor
-    // @Param  : pPath  => Absolute path of Audio asset.
+    // @Param  : pPath          => Absolute path of Audio asset.
+    //         : bFromResources => From resources file
     // @Return : KrWav instance
-    public KrWav(string pPath) : base(pPath)
+    public KrWav(string pPath, bool bFromResources) : base(pPath, bFromResources)
     {
         
     }

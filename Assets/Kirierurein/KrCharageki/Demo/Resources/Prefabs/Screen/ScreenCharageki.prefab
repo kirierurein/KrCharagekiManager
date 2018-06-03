@@ -442,7 +442,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   scriptPaths:
-  - Kirierurein/KrCharageki/Demo/Resources/TestCharageki/testScript.txt
+  - TestCharageki/testScript
   charagekiMode: 1
   rectTransform: {fileID: 224700805068467860}
   openPosition: {x: -175, y: -50, z: 0}
