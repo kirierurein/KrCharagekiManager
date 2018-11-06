@@ -26,16 +26,19 @@ public class KrResources
         }
         else
         {
-            FileStream pFileStream = new FileStream(pPath, FileMode.Open);
-            byte[] pResult = new byte[pFileStream.Length];
-            pFileStream.Read(pResult, 0, pResult.Length);
-            pFileStream.Close();
+            byte[] pResult = null;
+            using(FileStream pFileStream = new FileStream(pPath, FileMode.Open))
+            {
+                pResult = new byte[pFileStream.Length];
+                pFileStream.Read(pResult, 0, pResult.Length);
+            }
             return pResult;
         }
     }
 
     // @Brief  : Load text
     // @Note   : Please use streamReader.Close () yourself after using streamReader!!
+    //         : or close the file with "using()"
     // @Param  : pPath          => Asset path
     //         : bFromResources => From resources file
     // @Return : Stream reader

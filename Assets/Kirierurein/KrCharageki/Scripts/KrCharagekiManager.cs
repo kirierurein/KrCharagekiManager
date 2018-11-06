@@ -190,17 +190,9 @@ public class KrCharagekiManager : MonoBehaviour
         KrCharagekiScript pScript = new KrCharagekiScript();
         for(int sIndex = 0; sIndex < m_pScriptPaths.Length; sIndex++)
         {
-            StreamReader pReader = KrResources.LoadText(KrCharagekiDef.s_pASSET_BASE_PATH + m_pScriptPaths[sIndex], KrCharagekiDef.IsLoadingFromResources());
-            try
+            using(StreamReader pReader = KrResources.LoadText(KrCharagekiDef.s_pASSET_BASE_PATH + m_pScriptPaths[sIndex], KrCharagekiDef.IsLoadingFromResources()))
             {
                 pScript.LoadScript(pReader);
-            }
-            finally
-            {
-                if(pReader != null)
-                {
-                    pReader.Close();
-                }
             }
         }
         return pScript;
