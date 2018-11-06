@@ -52,7 +52,6 @@ public class KrLive2DModel : MonoBehaviour
         {
             float fModelWidth = m_pLive2dModel.getCanvasWidth();
             float fModelHeight = m_pLive2dModel.getCanvasHeight();
-            Matrix4x4 mOrthoProjection = Matrix4x4.Ortho(0, fModelWidth, fModelWidth, 0, -50.0f, 50.0f);
             Matrix4x4 mWorldPosition = transform.localToWorldMatrix;
             mWorldPosition[13] += (fModelHeight / fModelWidth) * mWorldPosition[5];
 
